@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 import os
 
 main_path = os.getcwd()
+
 def option():
     ### Displays menu and triggers one of the following functions
     print('Choose one option\n1:rotate\n2:resize\n<anything-else>:cancel and exit')
@@ -28,8 +29,12 @@ def new_rotat(a):
         try:
             Image.open(image_dir+ image).rotate(a).convert('RGB').save(new_image_dir+image)
             print('Successfully rotation of ', a, ' degrees')
-        except:
+        except UnidentifiedImageError:
             print('Could not convet this file')
+        except BaseException as e:
+            print('An error ocurred ' + type(e).__name__)
+        else:
+            print('This pic is ready :)')
 def new_size(a,b):
     ### Resizes: a = width and b = heigth
     images = os.listdir(main_path+'/images')
@@ -39,8 +44,12 @@ def new_size(a,b):
         try:
             Image.open(image_dir+ image).resize((a,b)).convert('RGB').save(new_image_dir+image)                         
             print('Successfully resizing: ', a, ' width and ', b, ' heigth')                                                   
-        except: 
+        except UnidentifiedImageError: 
             print('Could not convet this file')
+        except BaseException as e:
+            print('An error ocurred ' + type(e).__name__)
+        else:
+            print('This pic is ready')
 
 def main():
   option()
