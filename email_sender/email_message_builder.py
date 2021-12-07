@@ -61,3 +61,5 @@ server.login(login, password)
 ### ENVIO DO EMAIL
 server.send_message(message)
 ### retorna um dicionario dos usuarios dos recipients que NAO RECEBERAM A MSG
+### Terminado o processo DESLOGAR DO SERVIDOR
+server.quit()
