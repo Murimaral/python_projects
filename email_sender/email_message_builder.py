@@ -5,7 +5,7 @@ import os
 import mimetypes
 
 ### Setting variables
-sender = 'murimaral@hotmail.com'
+sender = 'fufiauau@hotmail.com'
 recipient = 'murimaral@gmail.com'
 subject = "Greetings from {} to {}!".format(sender, recipient)
 ### Instantiating EmailMessage object
@@ -38,4 +38,26 @@ with open(attachment, 'rb') as att:
                          subtype = m_subtype,
                          filename = os.path.basename(attachment))
 ### Show message object contents
-print(message)
+# print(message)
+
+### INITIALIZING SMTP SERVER
+import getpass     ### classe para receber input secreto 
+import smtplib     ### inicia servidor de email e envia
+host =  'smtp.office365.com'
+port = 587
+login = input("Por favor insira seu hotmail:\n")
+password = getpass.getpass('Password? ')
+### inicia o servidor
+server = smtplib.SMTP(host, port)
+
+### login no email inputado
+### antes do login deve ser atendida às condiçoes de autenticaçao do servidor (hotmail) usando 
+### nesse caso as funçoes ehlo() e starttls() 
+#server.ehlo()
+server.starttls() 
+server.login(login, password)
+
+
+### ENVIO DO EMAIL
+server.send_message(message)
+### retorna um dicionario dos usuarios dos recipients que NAO RECEBERAM A MSG
